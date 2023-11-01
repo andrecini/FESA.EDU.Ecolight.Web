@@ -35,10 +35,10 @@ O Repositório em questão, armazenará o código-fonte do frontend do Sistema.
   <summary>Produção</summary>
   
   ### Aplicação Web
-  **Nome:** ecolight-web-hml
-  **URL:** ecolight-web-hml.azurewebsites.net
+  - **Nome:** ecolight-web-hml
+  - **URL:** ecolight-web-hml.azurewebsites.net
 
   ### Banco de Dados
-  **Nome:** ecolight-web-prd
-  **HOST:** ecolight-web-prd.azurewebsites.net
+  - **Nome:** ecolight-web-prd
+  - **HOST:** ecolight-web-prd.azurewebsites.net
 </details>
