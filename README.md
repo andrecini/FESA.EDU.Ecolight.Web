@@ -22,23 +22,23 @@ O Repositório em questão, armazenará o código-fonte do frontend do Sistema.
 <details>
   <summary>Homologação</summary>
   
-  ### Aplicação Web
-  **Nome:** ecolight-web-hml
-  **URL:** ecolight-web-hml.azurewebsites.net
+  ### Aplicação Web  
+  #### **Nome:** ecolight-web-hml
+  #### **URL:** ecolight-web-hml.azurewebsites.net
 
-  ### Banco de Dados
-  **Nome:** ecolight-web-hml
-  **HOST:** ecolight-web-hml.azurewebsites.net
+  ### Banco de Dados  
+  #### **Nome:** ecolight-web-hml
+  #### **HOST:** ecolight-web-hml.azurewebsites.net
 </details>
 
 <details>
   <summary>Produção</summary>
   
-  ### Aplicação Web
-  - **Nome:** ecolight-web-hml
-  - **URL:** ecolight-web-hml.azurewebsites.net
+  ### Aplicação Web  
+  #### **Nome:** ecolight-web-prd
+  #### **URL:** ecolight-web-prd.azurewebsites.net
 
-  ### Banco de Dados
-  - **Nome:** ecolight-web-prd
-  - **HOST:** ecolight-web-prd.azurewebsites.net
+  ### Banco de Dados  
+  #### **Nome:** ecolight-web-prd
+  #### **HOST:** ecolight-web-prd.azurewebsites.net
 </details>
