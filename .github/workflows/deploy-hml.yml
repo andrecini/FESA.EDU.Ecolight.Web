@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ecolight-web-hml'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_44d28e6a2ba4437da5639822f0873a07 }}
+          publish-profile: ${{ secrets.HML_KEY }}
           package: .
