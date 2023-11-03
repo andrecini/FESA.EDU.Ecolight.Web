@@ -1,4 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Dispositivo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
@@ -25,6 +27,16 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         public IActionResult Detalhes()
         {
             return View();
+        }
+
+        public IActionResult Cadastrar(DispositivoViewModel viewModel)
+        {
+            return View("Index");
+        }
+
+        public IActionResult Editar(DispositivoViewModel viewModel)
+        {
+            return View("Detalhes");
         }
     }
 }
