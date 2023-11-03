@@ -11,6 +11,7 @@
     </div>
     <main>
         <div class="card">
+            <form class="w-100 h-100" asp-action="Cadastrar" asp-controller="Login">
             <div class="card-body">
                 <h4 class="card-title m-0 fw-bold">Cadastro</h4>
                 <span class="card-subtitle mb-2 text-muted">Insira seus dados para se cadastrar na aplicação</span>
@@ -21,13 +22,13 @@
                     <div class="col">
                         <div class="mb-2">
                             <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nome" placeholder="Digite seu Nome" />
+                            <input type="text" class="form-control" id="nome" placeholder="Digite seu Nome" name="Nome" />
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-2">
                             <label for="sobrenome" class="form-label">Sobrenome</label>
-                            <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu Sobrenome" />
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu Sobrenome" name="Sobrenome"/>
                         </div>
                     </div>
                 </div>
@@ -36,13 +37,18 @@
                     <div class="col">
                         <div class="mb-2">
                             <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" />
+                            <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" name="Cpf"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-2">
-                            <label for="nascimento" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="nascimento" />
+                            <label for="empresa" class="form-label">Empresa</label>
+                            <select class="form-select" name="EmpresaId">
+                                <option selected>Selecione sua empresa</option>
+                                <option value="1">Termomecanica</option>
+                                <option value="2">CEFSA</option>
+                                <option value="3">Ecolight</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -51,13 +57,13 @@
                     <div class="col">
                         <div class="mb-2">
                             <label for="celular" class="form-label">Celular</label>
-                            <input type="tel" class="form-control" id="celular" placeholder="Digite seu Celular" />
+                            <input type="tel" class="form-control" id="celular" placeholder="Digite seu Celular" name="Celular"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-2">
                             <label for="uf" class="form-label">UF</label>
-                            <select class="form-select">
+                            <select class="form-select" name="Uf">
                                 <option selected>Selecione seu estado</option>
                                 <option value="1">SP</option>
                                 <option value="2">RJ</option>
@@ -69,25 +75,26 @@
 
                 <div class="mb-2">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" />
+                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" name="Email"/>
                 </div>
 
                 <div class="row">
                     <div class="col p-0">
                         <div class="mb-2">
                             <label for="password" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="senha" placeholder="Digite seu senha" />
+                            <input type="password" class="form-control" id="senha" placeholder="Digite seu senha" name="Senha" />
                         </div>
                     </div>
                     <div class="col p-0">
                         <div class="mb-2">
                             <label for="password" class="form-label">Confirmação</label>
-                            <input type="password" class="form-control" id="senha" placeholder="Confirme sua senha" />
+                            <input type="password" class="form-control" id="senha" placeholder="Confirme sua senha" name="Confirmacao" />
                         </div>
                     </div>
                 </div>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100 mb-2">Cadastrar</a>
+                <input type="submit" class="btn btn-success w-100 mb-2" value="Cadastrar">
             </div>
+            </form>
         </div>
     </main>
 </body>

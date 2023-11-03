@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
@@ -17,9 +18,19 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
+        public IActionResult Acessar(string email, string senha)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Cadastro()
         {
             return View();
+        }
+
+        public IActionResult Cadastrar(LoginViewModel viewModel)
+        {
+           return View("Index");
         }
     }
 }
