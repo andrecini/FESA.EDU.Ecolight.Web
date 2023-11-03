@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/login/cadastro.css" rel="stylesheet" />
+
+<body>
+    <div id="background">
+        <img src="~/assets/login/login-background.png" />
+    </div>
+    <main>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title m-0 fw-bold">Cadastro</h4>
+                <span class="card-subtitle mb-2 text-muted">Insira seus dados para se cadastrar na aplicação</span>
+
+                <hr class="my-2" />
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Digite seu Nome" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="sobrenome" class="form-label">Sobrenome</label>
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu Sobrenome" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="nascimento" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="celular" class="form-label">Celular</label>
+                            <input type="tel" class="form-control" id="celular" placeholder="Digite seu Celular" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="uf" class="form-label">UF</label>
+                            <select class="form-select">
+                                <option selected>Selecione seu estado</option>
+                                <option value="1">SP</option>
+                                <option value="2">RJ</option>
+                                <option value="3">MG</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" />
+                </div>
+
+                <div class="row">
+                    <div class="col p-0">
+                        <div class="mb-2">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senha" placeholder="Digite seu senha" />
+                        </div>
+                    </div>
+                    <div class="col p-0">
+                        <div class="mb-2">
+                            <label for="password" class="form-label">Confirmação</label>
+                            <input type="password" class="form-control" id="senha" placeholder="Confirme sua senha" />
+                        </div>
+                    </div>
+                </div>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100 mb-2">Cadastrar</a>
+            </div>
+        </div>
+    </main>
+</body>

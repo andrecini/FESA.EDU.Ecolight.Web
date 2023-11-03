@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ecolight</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+</head>
+<body>
+    <navbar id="sidebar">
+        <div id="menu-icon">
+            <i class="material-icons">compost</i>
+            <span>ECOLIGTH</span>
+        </div>
+
+        <div id="dashboard" class="menu-item active" onclick="window.location.href = '@Url.Action("Index","Home")'">
+            <i class="material-icons"> dashboard </i>
+            <span>Dashboard</span>
+        </div>
+        <div id="dispositivos" class="menu-item" onclick="window.location.href = '@Url.Action("Index","Dispositivos")'">
+            <i class="material-icons"> lightbulb_circle </i>
+            <span>Dispositivos</span>
+        </div>
+        <div id="automacoes" class="menu-item" onclick="window.location.href = '@Url.Action("Index","Automacoes")'">
+            <i class="material-icons"> settings </i>
+            <span>Automações</span>
+        </div>
+        <div id="relatorio" class="menu-item" onclick="window.location.href = '@Url.Action("Index","Relatorios")'">
+            <i class="material-icons"> description </i>
+            <span>Relatórios</span>
+        </div>
+
+        <div class="menu-account" onclick="window.location.href = '@Url.Action("Index","Usuarios")'">
+            <div class="menu-item">
+                <i class="material-icons"> account_circle </i>
+                <span>André Cini</span>
+            </div>
+        </div>
+
+    </navbar>
+
+    <main class="main-container">
+        @RenderBody()
+    </main>  
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/css/login/index.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<body>
+    <div id="background">
+        <img src="~/assets/login/login-background.png" />
+    </div>
+    <main>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title m-0 fw-bold">Login</h4>
+                <span class="card-subtitle mb-2 text-muted">Insira seus dados para acessar a aplicação</span>
+
+                <hr class="my-2" />
+
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" />
+                </div>
+                <div class="mb-2">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="senha" placeholder="Digite sua senha" />
+                </div>
+                <div class="mb-2">
+                    <span class="card-subtitle text-muted">Ainda não tem uma conta?</span>
+                    <a asp-asp-controller="Login" asp-action="Cadastro" class="link-sucess">CADASTRE-SE</a>
+                </div>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100 mb-2">Acessar</a>
+            </div>
+        </div>
+    </main>
+</body>
