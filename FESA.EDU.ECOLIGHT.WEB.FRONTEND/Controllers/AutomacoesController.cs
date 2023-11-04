@@ -55,9 +55,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             var results = validator.Validate(viewModel);
 
             if (results.IsValid)
-            {
                 return true;
-            }
 
             var erros = results.Errors;
 

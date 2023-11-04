@@ -1,5 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
@@ -33,11 +35,53 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
-        public IActionResult Cadastrar(UsuariosViewModel viewModel)
+        public IActionResult Cadastrar(LoginViewModel viewModel)
         {
+            if (!Validar(viewModel))
+                return View("Cadastro");
+
             _notifyService.Success("Usuário Cadastrado com sucesso!");
 
            return View("Index");
+        }
+
+        private bool Validar(AutomacaoViewModel viewModel)
+        {
+            var validator = new AutomacaoViewModelValidator();
+
+            var results = validator.Validate(viewModel);
+
+            if (results.IsValid)
+            {
+                return true;
+            }
+
+            var erros = results.Errors;
+
+            foreach (var erro in erros)
+            {
+                _notifyService.Warning(erro.ErrorMessage);
+            }
+
+            return false;
+        }
+        private bool Validar(LoginViewModel viewModel)
+        {
+            var validator = new LoginViewModelValidator();
+
+            var results = validator.Validate(viewModel);
+
+            if (results.IsValid)
+                return true;
+
+            var erros = results.Errors;
+
+            foreach (var erro in erros)
+            {
+                _notifyService.Warning(erro.ErrorMessage);
+            }
+
+            return false;
         }
     }
 }
