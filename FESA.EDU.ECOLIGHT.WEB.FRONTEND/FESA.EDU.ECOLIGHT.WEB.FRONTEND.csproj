@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="appsettings.Production.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="FluentValidation" Version="11.8.0" />
     <PackageReference Include="FluentValidator" Version="2.0.4" />
