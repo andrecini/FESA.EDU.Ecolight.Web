@@ -24,18 +24,22 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
+        public IActionResult Cadastrar(DispositivoViewModel viewModel)
+        {
+            _notifyService.Success("Dispositivo cadastrado com sucesso!");
+
+            return View("Index");
+        }
+
         public IActionResult Detalhes()
         {
             return View();
         }
 
-        public IActionResult Cadastrar(DispositivoViewModel viewModel)
-        {
-            return View("Index");
-        }
-
         public IActionResult Editar(DispositivoViewModel viewModel)
         {
+            _notifyService.Success("Dispositivo alterado com sucesso!");
+
             return View("Detalhes");
         }
     }

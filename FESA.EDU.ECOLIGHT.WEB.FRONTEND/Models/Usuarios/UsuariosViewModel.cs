@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login
+namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Usuarios
 {
     public class UsuariosViewModel
     {

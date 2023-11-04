@@ -25,6 +25,8 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
         public IActionResult Cadastrar(AutomacaoViewModel viewModel)
         {
+            _notifyService.Success("Automação cadastrada com sucesso!");
+
             return View("Index");
         }
 
@@ -35,6 +37,8 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
         public IActionResult Editar(AutomacaoViewModel viewModel)
         {
+            _notifyService.Success("Automação alterada com sucesso!");
+
             return View("Detalhes");
         }
     }

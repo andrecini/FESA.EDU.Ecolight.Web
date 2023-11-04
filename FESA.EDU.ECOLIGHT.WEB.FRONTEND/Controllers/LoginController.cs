@@ -20,6 +20,11 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
         public IActionResult Acessar(string email, string senha)
         {
+            HttpContext.Session.SetString("role", "admin");
+            HttpContext.Session.SetString("username", "André Cini");
+
+            _notifyService.Success("Bem vindo ao nosso sistema!");
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -28,8 +33,10 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
-        public IActionResult Cadastrar(LoginViewModel viewModel)
+        public IActionResult Cadastrar(UsuariosViewModel viewModel)
         {
+            _notifyService.Success("Usuário Cadastrado com sucesso!");
+
            return View("Index");
         }
     }
