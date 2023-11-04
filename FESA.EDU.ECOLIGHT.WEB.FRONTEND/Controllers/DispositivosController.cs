@@ -42,5 +42,6 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
             return View("Detalhes");
         }
+
     }
 }

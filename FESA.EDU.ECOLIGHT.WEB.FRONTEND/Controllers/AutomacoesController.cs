@@ -25,6 +25,9 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
         public IActionResult Cadastrar(AutomacaoViewModel viewModel)
         {
+            if (!Validar(viewModel))
+                return View("Cadastro");
+
             _notifyService.Success("Automação cadastrada com sucesso!");
 
             return View("Index");
@@ -37,9 +40,34 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
         public IActionResult Editar(AutomacaoViewModel viewModel)
         {
+            if (!Validar(viewModel))
+                return View("Detalhes");
+
             _notifyService.Success("Automação alterada com sucesso!");
 
             return View("Detalhes");
         }
+
+        private bool Validar(AutomacaoViewModel viewModel)
+        {
+            var validator = new AutomacaoViewModelValidator();
+
+            var results = validator.Validate(viewModel);
+
+            if (results.IsValid)
+            {
+                return true;
+            }
+
+            var erros = results.Errors;
+
+            foreach (var erro in erros)
+            {
+                _notifyService.Warning(erro.ErrorMessage);
+            }
+
+            return false;            
+        }
+
     }
 }
