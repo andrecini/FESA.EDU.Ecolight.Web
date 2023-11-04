@@ -37,7 +37,7 @@
         <div class="menu-account" onclick="window.location.href = '@Url.Action("Index","Usuarios")'">
             <div class="menu-item">
                 <i class="material-icons"> account_circle </i>
-                <span>André Cini</span>
+                <span>@(Context.Session.GetString("username"))</span>
             </div>
         </div>
 
