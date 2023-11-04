@@ -23,9 +23,9 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login
         {
             RuleFor(x => x.Nome).NotEmpty().NotNull().WithMessage("É obrigatório informar o Nome!");
             RuleFor(x => x.Sobrenome).NotEmpty().NotNull().WithMessage("É obrigatório informar o Sobrenome!");
-            RuleFor(x => x.Cpf).Must(x => x.Length == 11);
+            RuleFor(x => x.Cpf).NotEmpty().NotNull().WithMessage("É obrigatório informar um CPF");
             RuleFor(x => x.EmpresaId).GreaterThan(0).WithMessage("ID da empresa não identificado!");
-            RuleFor(x => x.Celular).Must(x => x.Length == 11);
+            RuleFor(x => x.Celular).NotEmpty().NotNull().WithMessage("É obrigatório informar um Celular");
             RuleFor(x => x.Email).NotEmpty().NotNull().WithMessage("É obrigatório informar o Email!");
             RuleFor(x => x.Senha).NotEmpty().NotNull().WithMessage("É obrigatório informar a Senha!");
             RuleFor(x => x.Confirmacao).NotEmpty().NotNull().WithMessage("É obrigatório informar a Confirmação da Senha!");

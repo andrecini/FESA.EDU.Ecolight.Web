@@ -8,7 +8,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 {
     public class LoginController : Controller
     {
-        public INotyfService _notifyService { get; }
+        private readonly INotyfService _notifyService;
 
         public LoginController(INotyfService notifyService)
         {
