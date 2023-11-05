@@ -1,16 +1,24 @@
 ﻿using FluentValidation;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 
 namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao
 {
     public class AutomacaoViewModel
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
+        [JsonPropertyName("name")]
         public string Nome { get; set; }
+        [JsonPropertyName("onDate")]
         public TimeOnly Inicio { get; set; }
+        [JsonPropertyName("offDate")]
         public TimeOnly Fim { get; set; }
+        [JsonPropertyName("brightness")]
         public int Brilho { get; set; }
+        [JsonPropertyName("deviceId")]
         public int DispositivoId { get; set; }
+        [JsonPropertyName("enable")]
         public bool Ativo { get; set; }
     }
 

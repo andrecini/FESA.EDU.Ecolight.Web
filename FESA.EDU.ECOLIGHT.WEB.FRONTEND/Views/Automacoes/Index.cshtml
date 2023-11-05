@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<AutomacaoViewModel>
+@{
     ViewData["Title"] = "Automações";
 }
 
@@ -8,14 +9,14 @@
 </div>
 
 <div class="card-list mt-4">
-    @for (int i = 1; i < 11; i++)
+    @foreach (var automacao in Model)
     {
         <div class="card w-100">
             <div class="card-body row align-items-center w-100 m-0 pb-1">
                 <div class="col p-0">
-                    <span class="card-title">Automação @i</span>
-                    <span class="tag tag-dispositivo ms-2">Dispositivo @i</span>
-                    <span class="tag tag-ativo ms-1">Ativo</span>
+                    <span class="card-title">@automacao.Nome</span>
+                    <span class="tag tag-dispositivo ms-2">@automacao.DispositivoId</span>
+                    <span class="tag tag-ativo ms-1">@(automacao.Ativo ? "Ativo" : "Inativo")</span>
                 </div>
                 <div class="col-auto p-0">
                     <a asp-action="Detalhes" asp-controller="Automacoes" class="btn btn-secondary">Detalhes</a>
@@ -24,15 +25,15 @@
             <div class="card-body row align-items-center w-100 m-0 pt-0">
                 <div class="col-auto py-0 px-0">
                     <span class="card-subtitle text-black-50"><b>Início:</b></span>
-                    <span class="card-subtitle ms-1">06:00 am</span>
+                    <span class="card-subtitle ms-1">@automacao.Inicio</span>
                 </div>
                 <div class="col-auto py-0 px-2">
                     <span class="card-subtitle text-black-50"><b>Fim:</b></span>
-                    <span class="card-subtitle ms-1">06:00 pm</span>
+                    <span class="card-subtitle ms-1">@automacao.Fim</span>
                 </div>
                 <div class="col-auto py-0 px-2">
                     <span class="card-subtitle text-black-50"><b>Voltagem (%):</b></span>
-                    <span class="card-subtitle ms-1">40%</span>
+                    <span class="card-subtitle ms-1">@(automacao.Brilho)%</span>
                 </div>
             </div>
         </div>

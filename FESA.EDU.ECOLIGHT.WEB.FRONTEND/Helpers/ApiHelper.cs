@@ -19,6 +19,12 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Helpers
             return await client.PostAsync(endpoint, content);
         }
 
+        public static async Task<HttpResponseMessage> SendPostRequest(HttpClient client, string endpoint)
+        {
+
+            return await client.PostAsync(endpoint, null);
+        }
+
         public static async Task<HttpResponseMessage> SendPutRequest<Resquest>(HttpClient client, string endpoint, Resquest request)
         {
             var json = JsonSerializer.Serialize(request);

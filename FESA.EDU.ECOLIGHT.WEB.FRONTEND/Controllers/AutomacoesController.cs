@@ -1,8 +1,11 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Helpers;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Dispositivo;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
@@ -16,16 +19,18 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _notifyService = notifyService;
             _httpClient = factory.CreateClient("MyClient");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTkyMjQ0MTIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.lRTmWTr_w0esDDh4qlrBTUjm7HUQBWtRbmDrSTK-_JI");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
         }
 
         public async Task<IActionResult> Index()
         {
             var automacoes = await ApiHelper.SendGetRequest(_httpClient, "v1/settings?page=1&pageSize=5");
 
-            var result = automacoes.Content.ReadAsStringAsync();
+            var result = await automacoes.Content.ReadAsStringAsync();
 
-            return View();
+            var response = JsonSerializer.Deserialize<GetResponse<AutomacaoViewModel>>(result);
+
+            return View(response.Result);
         }
 
         public IActionResult Cadastro()
@@ -33,10 +38,12 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
-        public IActionResult Cadastrar(AutomacaoViewModel viewModel)
+        public async Task<IActionResult> Cadastrar(AutomacaoViewModel viewModel)
         {
             if (!Validar(viewModel))
                 return View("Cadastro");
+
+            var settings = await ApiHelper.SendPostRequest<AutomacaoViewModel>(_httpClient, "v1/settings", viewModel);
 
             _notifyService.Success("Automação cadastrada com sucesso!");
 
@@ -48,10 +55,12 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View();
         }
 
-        public IActionResult Editar(AutomacaoViewModel viewModel)
+        public async Task<IActionResult> Editar(AutomacaoViewModel viewModel)
         {
             if (!Validar(viewModel))
                 return View("Detalhes");
+
+            var settings = await ApiHelper.SendPostRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id{viewModel.Id}", viewModel);
 
             _notifyService.Success("Automação alterada com sucesso!");
 
