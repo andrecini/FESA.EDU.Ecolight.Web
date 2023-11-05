@@ -16,6 +16,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddHttpClient("MyClient", client =>
+{
+    var baseUrl = builder.Configuration["API:BaseUrl"];
+    client.BaseAddress = new Uri(baseUrl);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
