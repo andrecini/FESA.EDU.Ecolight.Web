@@ -43,16 +43,26 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Cadastro");
 
-            var devices = await ApiHelper.SendPostRequest<DispositivoViewModel>(_httpClient, "v1/devices", viewModel);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var device = await ApiHelper.SendPostRequest(_httpClient, "v1/devices", viewModel);
 
             _notifyService.Success("Dispositivo cadastrado com sucesso!");
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Detalhes()
+        public async Task<IActionResult> Detalhes()
         {
-            return View();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices/1");
+
+            var result = await automacoes.Content.ReadAsStringAsync();
+
+            var response = JsonSerializer.Deserialize<GetByIdResponse<DispositivoViewModel>>(result);
+
+            return View(response.Result);
         }
 
         public async Task<IActionResult> Editar(DispositivoViewModel viewModel)
@@ -60,11 +70,17 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Detalhes");
 
-            var devices = await ApiHelper.SendPostRequest<DispositivoViewModel>(_httpClient, $"v1/settings?id{viewModel.Id}", viewModel);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var devices = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices?companyId=1");
+
+            var result = await devices.Content.ReadAsStringAsync();
+
+            var response = JsonSerializer.Deserialize<GetResponse<DispositivoViewModel>>(result);
 
             _notifyService.Success("Dispositivo alterado com sucesso!");
 
-            return View("Detalhes");
+            return RedirectToAction("Detalhes");
         }
 
         private bool Validar(DispositivoViewModel viewModel)

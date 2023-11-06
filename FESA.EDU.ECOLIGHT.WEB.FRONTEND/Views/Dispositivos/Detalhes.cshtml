@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DispositivoViewModel
+
+@{
     ViewData["Title"] = "Detalhes";
 }
 
@@ -15,31 +17,31 @@
 
             <div class="mb-2">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite um Nome para o dispositivo" name="Nome" />
+                <input type="text" class="form-control" id="nome" placeholder="Digite um Nome para o dispositivo" name="Nome" value="@Model.Nome"/>
             </div>
 
             <div class="row">
                 <div class="col">
                     <div class="mb-2">
                         <label for="codigo" class="form-label">Código</label>
-                        <input type="text" class="form-control" id="codigo" placeholder="Digite o Código do dispositivo" name="Codigo" />
+                        <input type="text" class="form-control" id="codigo" placeholder="Digite o Código do dispositivo" name="Codigo" value="@Model.Codigo"/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-2">
                         <label for="quantidade" class="form-label">Quantidade de lâmpadas</label>
-                        <input type="number" class="form-control" id="sobrenome" placeholder="Digite quantidade de lâmpadas conectadas" name="Quantidade" />
+                        <input type="number" class="form-control" id="sobrenome" placeholder="Digite quantidade de lâmpadas conectadas" name="Quantidade" value="@Model.Quantidade" />
                     </div>
                 </div>
             </div>
 
             <div class="mb-2">
                 <label for="descricao" class="form-label">Digite uma descrição para esse dispositivo</label>
-                <textarea class="form-control" name="Descricao"></textarea>
+                <textarea class="form-control" name="Descricao">@Model.Descricao</textarea>
             </div>
 
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" value="true" name="Ativo">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" value="@(Model.Ativo == "Active" ? true : false)" name="Ativo">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Dispositivo Ativo</label>
             </div>
 

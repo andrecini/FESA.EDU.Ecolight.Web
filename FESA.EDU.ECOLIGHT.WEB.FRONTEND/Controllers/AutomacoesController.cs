@@ -69,11 +69,13 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Detalhes");
 
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
             var settings = await ApiHelper.SendPutRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id={viewModel.Id}", viewModel);
 
             _notifyService.Success("Automação alterada com sucesso!");
 
-            return View("Detalhes");
+            return RedirectToAction("Detalhes");
         }
 
         private bool Validar(AutomacaoViewModel viewModel)
