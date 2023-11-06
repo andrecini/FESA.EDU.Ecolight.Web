@@ -31,15 +31,15 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         public async Task<IActionResult> Acessar(string email, string senha)
         {
 
-            var user = await ApiHelper.SendPostRequest(_httpClient, $"v1/authentications/login?username={email}&password={senha}");
+            var user = await ApiHelper.SendGetRequest(_httpClient, $"v1/authentications/login?username={email}&password={senha}");
 
             var result = await user.Content.ReadAsStringAsync();
 
-            var response = JsonSerializer.Deserialize<PostResponse<Authentication>>(result);
+            var response = JsonSerializer.Deserialize<GetAuthenticationResponse<Authentication>>(result);
 
             //HttpContext.Session.SetString("role", "admin");
-            HttpContext.Session.SetString("username", response.CreatedEntity.UserName);
-            HttpContext.Session.SetString("token", response.CreatedEntity.Token.Token);
+            HttpContext.Session.SetString("username", response.Auth.UserName);
+            HttpContext.Session.SetString("token", response.Auth.Token.Token);
 
             _notifyService.Success("Bem vindo ao nosso sistema!");
 

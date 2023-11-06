@@ -19,11 +19,12 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _notifyService = notifyService;
             _httpClient = factory.CreateClient("MyClient");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
         }
 
         public async Task<IActionResult> Index()
         {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
             var automacoes = await ApiHelper.SendGetRequest(_httpClient, "v1/settings?page=1&pageSize=5");
 
             var result = await automacoes.Content.ReadAsStringAsync();
@@ -50,9 +51,17 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             return View("Index");
         }
 
-        public IActionResult Detalhes()
+        public async Task<IActionResult> Detalhes()
         {
-            return View();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "/v1/settings/1");
+
+            var result = await automacoes.Content.ReadAsStringAsync();
+
+            var response = JsonSerializer.Deserialize<GetByIdResponse<AutomacaoViewModel>>(result);
+
+            return View(response.Result);
         }
 
         public async Task<IActionResult> Editar(AutomacaoViewModel viewModel)
@@ -60,7 +69,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Detalhes");
 
-            var settings = await ApiHelper.SendPostRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id{viewModel.Id}", viewModel);
+            var settings = await ApiHelper.SendPutRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id={viewModel.Id}", viewModel);
 
             _notifyService.Success("Automação alterada com sucesso!");
 

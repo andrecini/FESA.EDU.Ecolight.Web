@@ -11,10 +11,13 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
+
         [JsonPropertyName("userName")]
         public string UserName { get; set; }
+
         [JsonPropertyName("role")]
-        public Roles Role { get; set; }
+        public string Role { get; set; }
+
         [JsonPropertyName("token")]
         public TokenModel Token { get; set; }
     }
