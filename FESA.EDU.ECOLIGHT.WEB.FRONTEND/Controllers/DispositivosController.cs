@@ -17,13 +17,14 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         public DispositivosController(INotyfService notifyService, IHttpClientFactory factory)
         {
             _notifyService = notifyService;
-            _httpClient = factory.CreateClient("MyClient");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+            _httpClient = factory.CreateClient("MyClient");            
         }
 
         public async Task<IActionResult> Index()
         {
-            var devices = await ApiHelper.SendGetRequest(_httpClient, "v1/devices?page=1&pageSize=5");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var devices = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices?companyId=1");
 
             var result = await devices.Content.ReadAsStringAsync();
 

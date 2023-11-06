@@ -1,6 +1,8 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Dashboard";
 }
+
 
 <link href="~/css/dashboard/index.css" rel="stylesheet" />
 
@@ -9,7 +11,7 @@
         <span class="card-title">Ativos</span>
 
         <div class="card-info">
-            <span class="card-data">50</span>
+            <span class="card-data">@Model.Ativo</span>
             <i class="card-icon material-icons"> brightness_5</i>
         </div>
     </div>
@@ -19,24 +21,24 @@
 
 
         <div class="card-info">
-            <span class="card-data">25</span>
+            <span class="card-data">@Model.Inativo</span>
             <i class="card-icon material-icons"> brightness_7 </i>
         </div>
     </div>
 
-    <div class="col card">
-        <span class="card-title">StandBy</span>
+    @*     <div class="col card">
+    <span class="card-title">CriticalDevices</span>
 
-        <div class="card-info">
-            <span class="card-data">25</span>
-            <i class="card-icon material-icons"> brightness_6 </i>
-        </div>
+    <div class="card-info">
+    <span class="card-data">@Model.</span>
+    <i class="card-icon material-icons"> brightness_6 </i>
     </div>
+    </div> *@
 
     <div class="col card">
         <span class="card-title">Dispositivos</span>
         <div class="card-info">
-            <span class="card-data">100</span>
+            <span class="card-data">@Model.Total</span>
             <i class="card-icon material-icons"> memory </i>
         </div>
     </div>
@@ -58,7 +60,7 @@
                                 <span class="card-title">Automação @i</span>
                             </div>
                             <div class="col-auto p-0">
-                                <span class="tag tag-ativo ms-2">6:00 am</span>
+                                <span class="tag tag-ativo ms-2"></span>
                                 <span class="tag tag-ativo ms-2">6:00 pm</span>
                             </div>
                         </div>
@@ -116,7 +118,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'Reais (R$)',
-                data: [1200, 900, 800, 1500, 2000, 1700],
+                data: [@Model.DespesasDispositivosMensal.ToList()[0],
+                       @Model.DespesasDispositivosMensal.ToList()[1],
+                       @Model.DespesasDispositivosMensal.ToList()[2],
+                       @Model.DespesasDispositivosMensal.ToList()[3],
+                       @Model.DespesasDispositivosMensal.ToList()[4],
+                       @Model.DespesasDispositivosMensal.ToList()[5]],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',
@@ -155,7 +162,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'kWh',
-                data: [12000, 9000, 8000, 15000, 20000, 17000],
+                data: [@Model.UsoKwhMensal.ToList()[0],
+                       @Model.UsoKwhMensal.ToList()[1],
+                       @Model.UsoKwhMensal.ToList()[2],
+                       @Model.UsoKwhMensal.ToList()[3],
+                       @Model.UsoKwhMensal.ToList()[4],
+                       @Model.UsoKwhMensal.ToList()[5]],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',

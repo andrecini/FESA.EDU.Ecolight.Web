@@ -31,7 +31,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         public async Task<IActionResult> Acessar(string email, string senha)
         {
 
-            var user = await ApiHelper.SendGetRequest(_httpClient, $"v1/authentications/login?username={email}&password={senha}");
+            var user = await ApiHelper.SendGetRequest(_httpClient, $"v1/authentications/login?email={email}&password={senha}");
 
             var result = await user.Content.ReadAsStringAsync();
 

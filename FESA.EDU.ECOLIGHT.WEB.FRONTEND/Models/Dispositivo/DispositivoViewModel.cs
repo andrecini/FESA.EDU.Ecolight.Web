@@ -22,7 +22,7 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Dispositivo
         public string Descricao { get; set; }
 
         [JsonPropertyName("enable")]
-        public bool Ativo { get; set; }
+        public string Ativo { get; set; }
     }
 
     public class DispositivoViewModelValidator : AbstractValidator<DispositivoViewModel>

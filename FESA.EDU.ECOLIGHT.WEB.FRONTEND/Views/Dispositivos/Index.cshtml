@@ -15,7 +15,7 @@
             <div class="card-body row align-items-center w-100 m-0">
                 <div class="col p-0">
                     <span class="card-title">@dispositivo.Nome</span>
-                    <span class="tag tag-ativo ms-1">@(dispositivo.Ativo ? "Ativo" : "Inativo")</span>
+                    <span class="tag tag-ativo ms-1">@(dispositivo.Ativo)</span>
                 </div>
                 <div class="col-auto p-0">
                     <a asp-action="Detalhes" asp-controller="Dispositivos" class="btn btn-secondary">Detalhes</a>
