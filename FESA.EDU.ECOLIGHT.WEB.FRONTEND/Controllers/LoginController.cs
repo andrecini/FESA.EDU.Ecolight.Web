@@ -4,6 +4,7 @@ using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Dispositivo;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login;
 using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Responses;
+using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Usuarios;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +65,24 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Cadastro");
 
-            _notifyService.Success("Usuário Cadastrado com sucesso!");
+            viewModel.Role = 1;
+            viewModel.Nome = $"{viewModel.Nome} {viewModel.Sobrenome}";
+
+            var result = await ApiHelper.SendPostRequest(_httpClient, $"/v1/users", viewModel);
+
+            var content = await result.Content.ReadAsStringAsync();
+
+            var dadosUsuario = JsonSerializer.Deserialize<GetByIdResponse<UsuariosViewModel>>(content);
+
+            if (!dadosUsuario.Success)
+            {
+                _notifyService.Success("Não foi possível cadastrar o Usuário!");
+
+                return RedirectToAction("Index");
+            }
+
+
+            _notifyService.Success("Usuário cadastrado com sucesso!");
 
             var user = await ApiHelper.SendPostRequest<LoginViewModel>(_httpClient, "v1/users", viewModel);
 

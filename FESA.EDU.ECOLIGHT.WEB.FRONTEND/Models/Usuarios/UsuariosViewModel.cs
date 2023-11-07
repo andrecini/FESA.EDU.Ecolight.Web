@@ -31,11 +31,11 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Usuarios
         [JsonPropertyName("password")]
         public string Senha { get; set; }
 
-        [JsonIgnore]
-        public string Confirmacao { get; set; }
-
         [JsonPropertyName("uf")]
         public int Uf { get; set; }
+
+        [JsonIgnore]
+        public string Confirmacao { get; set; }
 
     }
 
