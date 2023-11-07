@@ -26,6 +26,12 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Dispositivo
 
         [JsonPropertyName("usedKWH")]
         public float KwhUsados { get; set; }
+
+        [JsonPropertyName("empresaId")]
+        public int EmpresaId { get; set; }
+
+        [JsonIgnore]
+        public bool CheckAtivo { get; set; }
     }
 
     public class DispositivoViewModelValidator : AbstractValidator<DispositivoViewModel>

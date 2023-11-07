@@ -8,19 +8,19 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Relatorio
         [JsonPropertyName("carbonEmission")]
         public float EmissaoDeCarbono { get; set; }
 
-        [JsonPropertyName("DevicesExpenses")]
+        [JsonPropertyName("devicesExpenses")]
         public float CustoDispositivos { get; set; }
 
-        [JsonPropertyName("CriticalDevices")]
+        [JsonPropertyName("criticalDevices")]
         public IEnumerable<DispositivoViewModel> DispositivosCriticos { get; set; }
 
-        [JsonPropertyName("AllDevices")]
+        [JsonPropertyName("allDevices")]
         public IEnumerable<DispositivoViewModel> TodosDispositivos { get; set; }
 
-        [JsonPropertyName("MonthlyKwhSavings")]
+        [JsonPropertyName("monthlyKwhSavings")]
         public IEnumerable<float> EconomiaMensalKwh { get; set; }
 
-        [JsonPropertyName("MonthlyDevicesExpenseSavings")]
+        [JsonPropertyName("monthlyDevicesExpenseSavings")]
         public IEnumerable<float> EconomiaMensalCustos { get; set; }
 
     }

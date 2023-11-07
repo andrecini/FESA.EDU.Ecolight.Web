@@ -103,17 +103,18 @@
 <script>
     function RetornaUltimosSeisMeses() {
         let dataAtual = new Date();
-        let mesAtual = dataAtual.getMonth();
-
-        let todosOsMeses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-
         let ultimos6Meses = [];
+        let mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
         for (let i = 0; i < 6; i++) {
-            let mes = todosOsMeses[(12 + mesAtual - 1) % 12];
+            let mes = mesesAbreviados[dataAtual.getMonth()]; // Obtém o mês atual abreviado
             ultimos6Meses.unshift(mes);
+
+            // Subtrai 1 do mês atual para obter o mês do mês passado
+            dataAtual.setMonth(dataAtual.getMonth() - 1);
         }
 
-        console.log(ultimos6Meses);
+        console.log(ultimos6Meses)
 
         return ultimos6Meses;
     }
@@ -126,12 +127,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'Reais (R$)',
-                data: [@Model.EconomiaMensalCustos.ToList()[0],
-                       @Model.EconomiaMensalCustos.ToList()[1],
-                       @Model.EconomiaMensalCustos.ToList()[2],
-                       @Model.EconomiaMensalCustos.ToList()[3],
-                       @Model.EconomiaMensalCustos.ToList()[4],
-                       @Model.EconomiaMensalCustos.ToList()[5]],
+                data: [@((int)Model.EconomiaMensalCustos.ToList()[0]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[1]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[2]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[3]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[4]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',
@@ -170,12 +171,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'kWh',
-                data: [@Model.EconomiaMensalKwh.ToList()[0],
-                       @Model.EconomiaMensalKwh.ToList()[1],
-                       @Model.EconomiaMensalKwh.ToList()[2],
-                       @Model.EconomiaMensalKwh.ToList()[3],
-                       @Model.EconomiaMensalKwh.ToList()[4],
-                       @Model.EconomiaMensalKwh.ToList()[5]],
+                data: [@((int)Model.EconomiaMensalKwh.ToList()[0]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[1]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[2]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[3]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[4]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',

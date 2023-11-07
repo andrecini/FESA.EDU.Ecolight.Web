@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao;
+using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
 namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Home
@@ -20,5 +21,7 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Home
 
         [JsonPropertyName("monthlyDeviceExpenses")]
         public IEnumerable<float> DespesasDispositivosMensal { get; set; }
+
+        public IEnumerable<AutomacaoViewModel> Rotinas { get; set; }
     }
 }

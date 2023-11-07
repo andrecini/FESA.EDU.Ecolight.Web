@@ -24,7 +24,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var devices = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices?companyId=1");
+            var devices = await ApiHelper.SendGetRequest(_httpClient, $"/v1/devices?companyId={HttpContext.Session.GetString("empresa")}");
 
             var result = await devices.Content.ReadAsStringAsync();
 
@@ -43,9 +43,23 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Cadastro");
 
+            viewModel.Ativo = viewModel.CheckAtivo ? "Active" : "Inactive";
+            viewModel.EmpresaId = Convert.ToInt32(HttpContext.Session.GetString("empresa"));
+
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var device = await ApiHelper.SendPostRequest(_httpClient, "v1/devices", viewModel);
+            var result = await ApiHelper.SendPostRequest(_httpClient, "v1/devices", viewModel);
+
+            var json = await result.Content.ReadAsStringAsync();
+
+            var response = JsonSerializer.Deserialize<GetByIdResponse<DispositivoViewModel>>(json);
+
+            if (!response.Success)
+            {
+                _notifyService.Warning("Não foi possível cadastrar o Dispositivo!");
+
+                return View("Cadastro");
+            }
 
             _notifyService.Success("Dispositivo cadastrado com sucesso!");
 
@@ -56,9 +70,9 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices/1");
+            var device = await ApiHelper.SendGetRequest(_httpClient, $"/v1/devices/{HttpContext.Session.GetString("empresa")}");
 
-            var result = await automacoes.Content.ReadAsStringAsync();
+            var result = await device.Content.ReadAsStringAsync();
 
             var response = JsonSerializer.Deserialize<GetByIdResponse<DispositivoViewModel>>(result);
 
@@ -72,15 +86,25 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var devices = await ApiHelper.SendGetRequest(_httpClient, "/v1/devices?companyId=1");
+            viewModel.Ativo = viewModel.CheckAtivo ? "Active" : "Inactive";
+            viewModel.EmpresaId = Convert.ToInt32(HttpContext.Session.GetString("empresa"));
+
+            var devices = await ApiHelper.SendPutRequest(_httpClient, "/v1/devices?id=1", viewModel);
 
             var result = await devices.Content.ReadAsStringAsync();
 
             var response = JsonSerializer.Deserialize<GetResponse<DispositivoViewModel>>(result);
 
+            if (!response.Success)
+            {
+                _notifyService.Warning("Não foi possível alterar o Dispositivo!");
+
+                return View("Detalhes", viewModel);
+            }
+
             _notifyService.Success("Dispositivo alterado com sucesso!");
 
-            return RedirectToAction("Detalhes");
+            return RedirectToAction("Index");
         }
 
         private bool Validar(DispositivoViewModel viewModel)

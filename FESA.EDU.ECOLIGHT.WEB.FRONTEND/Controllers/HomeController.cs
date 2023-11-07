@@ -34,7 +34,23 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
             var response = JsonSerializer.Deserialize<GetByIdResponse<HomeViewModel>>(result);
 
+            var viewModel = response.Result;
+            viewModel.Rotinas = await GetRotinas();
+
             return View(response.Result);
+        }
+
+        private async Task<IEnumerable<AutomacaoViewModel>> GetRotinas()
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+
+            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "v1/settings?page=1&pageSize=5");
+
+            var result = await automacoes.Content.ReadAsStringAsync();
+
+            var response = JsonSerializer.Deserialize<GetResponse<AutomacaoViewModel>>(result);
+
+            return response.Result;
         }
 
         public IActionResult Privacy()

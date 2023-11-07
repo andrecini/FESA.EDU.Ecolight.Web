@@ -37,9 +37,16 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
             var response = JsonSerializer.Deserialize<GetAuthenticationResponse<Authentication>>(result);
 
+            if (!response.Success)
+            {
+                _notifyService.Warning("Email ou Senha incorretos!");
+                return View("Index");
+            }
+
             //HttpContext.Session.SetString("role", "admin");
             HttpContext.Session.SetString("username", response.Auth.UserName);
             HttpContext.Session.SetString("token", response.Auth.Token.Token);
+            HttpContext.Session.SetString("empresa", response.Auth.EmpresaId.ToString());
 
             _notifyService.Success("Bem vindo ao nosso sistema!");
 

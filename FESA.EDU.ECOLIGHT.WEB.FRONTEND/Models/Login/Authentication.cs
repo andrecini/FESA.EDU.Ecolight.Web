@@ -20,5 +20,8 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login
 
         [JsonPropertyName("token")]
         public TokenModel Token { get; set; }
+
+        [JsonPropertyName("empresaId")]
+        public int EmpresaId { get; set; }
     }
 }
