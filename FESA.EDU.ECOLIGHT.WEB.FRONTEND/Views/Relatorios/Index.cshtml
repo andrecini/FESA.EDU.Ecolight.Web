@@ -1,0 +1,216 @@
+﻿@model RelatorioViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<link href="~/css/relatorios/index.css" rel="stylesheet" />
+
+<div id="line-data" class="row w-100">
+    <div id="column-data" class="col">
+        <div class="card h-50">
+            <span class="card-title">Taxa de Carbono (unid.)</span>
+
+            <div class="card-info">
+                <span class="card-data">@Model.EmissaoDeCarbono</span>
+                <i class="card-icon material-icons"> recycling </i>
+            </div>
+        </div>
+
+        <div class="card h-50">
+            <span class="card-title">Gasto até o momento (R$)</span>
+
+            <div class="card-info">
+                <span class="card-data">@Model.CustoDispositivos</span>
+                <i class="card-icon material-icons"> payments </i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col h-100 card">
+        <div class="card-title">
+            <i class="card-title-icon material-icons"> monetization_on </i>
+            <span>Economia de custo</span>
+        </div>
+        <div class="h-100 w-100">
+            <canvas id="custo"></canvas>
+        </div>
+    </div>
+
+    <div class="col h-100 card">
+        <div class="card-title">
+            <i class="card-title-icon material-icons"> energy_savings_leaf </i>
+            <span>Economia Energética</span>
+        </div>
+        <div class="h-100 w-100">
+            <canvas id="energia"></canvas>
+        </div>
+    </div>
+</div>
+
+<div id="main-data" class="row w-100">
+    <div class="col h-100 p-0">
+        <div class="card h-100">
+            <div class="card-title">
+                <i class="card-title-icon material-icons"> warning</i>
+                <span>Maiores Gastos</span>
+            </div>
+            <div class="card-list mt-4">
+                @foreach (var dispositivo in Model.DispositivosCriticos)
+                {
+                    <div class="card shadow-sm w-100 p-0">
+                        <div class="card-body row align-items-cents w-100 m-0 p-2">
+                            <div class="col p-0">
+                                <span class="card-title">@dispositivo.Nome</span>
+                            </div>
+                            <div class="col-auto p-0">
+                                <span class="tag tag-ativo ms-2">@dispositivo.KwhUsados kWh</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col h-100 p-0">
+        <div class="card h-100">
+            <div class="card-title">
+                <i class="card-title-icon material-icons"> format_list_bulleted </i>
+                <span>Dispositivos</span>
+            </div>
+            <div class="card-list mt-4">
+                @foreach (var dispositivo in Model.TodosDispositivos)
+                {
+                    <div class="card shadow-sm w-100 p-0">
+                        <div class="card-body row align-items-cents w-100 m-0 p-2">
+                            <div class="col p-0">
+                                <span class="card-title">@dispositivo.Nome</span>
+                            </div>
+                            <div class="col-auto p-0">
+                                <span class="tag tag-ativo ms-2">@dispositivo.KwhUsados kWh</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    function RetornaUltimosSeisMeses() {
+        let dataAtual = new Date();
+        let ultimos6Meses = [];
+        let mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+        for (let i = 0; i < 6; i++) {
+            let mes = mesesAbreviados[dataAtual.getMonth()]; // Obtém o mês atual abreviado
+            ultimos6Meses.unshift(mes);
+
+            // Subtrai 1 do mês atual para obter o mês do mês passado
+            dataAtual.setMonth(dataAtual.getMonth() - 1);
+        }
+
+        console.log(ultimos6Meses)
+
+        return ultimos6Meses;
+    }
+
+    function DefineGraficoCusto() {
+
+        let ctx = document.getElementById('custo').getContext('2d');
+
+        let dados = {
+            labels: RetornaUltimosSeisMeses(),
+            datasets: [{
+                label: 'Reais (R$)',
+                data: [@((int)Model.EconomiaMensalCustos.ToList()[0]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[1]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[2]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[3]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[4]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[5])],
+                backgroundColor: [
+                    'rgba(126, 218, 132, 0.2)',
+                    'rgba(126, 218, 132, 0.3)',
+                    'rgba(126, 218, 132, 0.4)',
+                    'rgba(126, 218, 132, 0.5)',
+                    'rgba(126, 218, 132, 0.6)',
+                    'rgba(126, 218, 132, 0.7)',
+                ],
+                borderColor: [
+                    'rgba(80,172,86,1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+
+        let meuGrafico = new Chart(ctx, {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    function DefineGraficoEnergia() {
+
+        let ctx = document.getElementById('energia').getContext('2d');
+
+        let dados = {
+            labels: RetornaUltimosSeisMeses(),
+            datasets: [{
+                label: 'kWh',
+                data: [@((int)Model.EconomiaMensalKwh.ToList()[0]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[1]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[2]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[3]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[4]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[5])],
+                backgroundColor: [
+                    'rgba(126, 218, 132, 0.2)',
+                    'rgba(126, 218, 132, 0.3)',
+                    'rgba(126, 218, 132, 0.4)',
+                    'rgba(126, 218, 132, 0.5)',
+                    'rgba(126, 218, 132, 0.6)',
+                    'rgba(126, 218, 132, 0.7)',
+                ],
+                borderColor: [
+                    'rgba(80,172,86,1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+
+        let meuGrafico = new Chart(ctx, {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    window.onload = function () {
+        DefineGraficoCusto();
+        DefineGraficoEnergia();
+    }
+
+
+</script>

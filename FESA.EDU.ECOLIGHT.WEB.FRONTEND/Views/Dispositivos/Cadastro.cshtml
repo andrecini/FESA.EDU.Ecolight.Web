@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Dispositivos'";
+}
+
+<div class="card w-100 my-auto">
+    <form class="w-100 h-100 p-0 m-0" asp-action="Cadastrar" asp-controller="Dispositivos">
+        <div class="card-body">
+            <h4 class="card-title m-0 fw-bold">Cadastro de Dispositivo</h4>
+            <span class="card-subtitle mb-2 text-muted">Insira os dados do dispositivo</span>
+
+            <hr class="my-2" />
+
+            <div class="mb-2">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Digite um Nome para o dispositivo" name="Nome" />
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="codigo" class="form-label">Código</label>
+                        <input type="text" class="form-control" id="codigo" placeholder="Digite o Código do dispositivo" name="Codigo" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="quantidade" class="form-label">Quantidade de lâmpadas</label>
+                        <input type="number" class="form-control" id="quantidade" placeholder="Digite quantidade de lâmpadas" name="Quantidade" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="descricao" class="form-label">Digite uma descrição para esse dispositivo</label>
+                <textarea class="form-control" name="Descricao"></textarea>
+            </div>
+
+            <input type="hidden" value="true" name="CheckAtivo"/>
+
+            <div class="d-flex align-items-center justify-content-end w-100">
+                <a asp-controller="Dispositivos" asp-action="Index" class="btn btn-secondary mb-2 me-2">Cancelar</a>
+                <input type="submit" class="btn btn-success mb-2" value="Salvar" />
+            </div>
+
+        </div>
+    </form>
+</div>
