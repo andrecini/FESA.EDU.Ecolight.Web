@@ -44,11 +44,22 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             if (!Validar(viewModel))
                 return View("Cadastro");
 
-            var settings = await ApiHelper.SendPostRequest<AutomacaoViewModel>(_httpClient, "v1/settings", viewModel);
+            var result = await ApiHelper.SendPostRequest<AutomacaoViewModel>(_httpClient, $"v1/settings", viewModel);
+
+            var content = await result.Content.ReadAsStringAsync();
+
+            var setting = JsonSerializer.Deserialize<GetByIdResponse<AutomacaoViewModel>>(content);
+
+            if (!setting.Success)
+            {
+                _notifyService.Warning("Não foi possível alterar a Automação!");
+
+                return RedirectToAction("Cadastro");
+            }
 
             _notifyService.Success("Automação cadastrada com sucesso!");
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Detalhes()
@@ -71,11 +82,22 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var settings = await ApiHelper.SendPutRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id={viewModel.Id}", viewModel);
+            var result = await ApiHelper.SendPutRequest<AutomacaoViewModel>(_httpClient, $"v1/settings?id={viewModel.Id}", viewModel);
+
+            var content = await result.Content.ReadAsStringAsync();
+
+            var setting = JsonSerializer.Deserialize<GetByIdResponse<AutomacaoViewModel>>(content);
+
+            if (!setting.Success)
+            {
+                _notifyService.Warning("Não foi possível alterar a Automação!");
+
+                return RedirectToAction("Detalhes", viewModel);
+            }
 
             _notifyService.Success("Automação alterada com sucesso!");
 
-            return RedirectToAction("Detalhes");
+            return RedirectToAction("Index");
         }
 
         private bool Validar(AutomacaoViewModel viewModel)

@@ -8,16 +8,24 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
+
         [JsonPropertyName("name")]
         public string Nome { get; set; }
+
         [JsonPropertyName("onDate")]
         public TimeOnly Inicio { get; set; }
+
         [JsonPropertyName("offDate")]
         public TimeOnly Fim { get; set; }
+
         [JsonPropertyName("brightness")]
         public int Brilho { get; set; }
         [JsonPropertyName("deviceId")]
         public int DispositivoId { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Descricao { get; set; }
+
         [JsonPropertyName("enable")]
         public bool Ativo { get; set; }
     }
@@ -30,7 +38,6 @@ namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Automacao
             RuleFor(x => x.Inicio).Must(x => x != TimeOnly.MinValue).WithMessage("É obrigatório definir o horário de Início da Automação!");
             RuleFor(x => x.Fim).Must(x => x != TimeOnly.MinValue).WithMessage("É obrigatório definir o horário de Fim da Automação!");
             RuleFor(x => x.Brilho).GreaterThan(-1).LessThan(101).WithMessage("O Brilho da lâmpada deve ser um valor entre 0 e 100%!");
-            RuleFor(x => x.Id).Must(x => x > 0).WithMessage("ID da empresa não identificado!");
         }
 
     }
