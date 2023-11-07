@@ -47,6 +47,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
             HttpContext.Session.SetString("username", response.Auth.UserName);
             HttpContext.Session.SetString("token", response.Auth.Token.Token);
             HttpContext.Session.SetString("empresa", response.Auth.EmpresaId.ToString());
+            HttpContext.Session.SetString("userid", response.Auth.Id.ToString());
 
             _notifyService.Success("Bem vindo ao nosso sistema!");
 

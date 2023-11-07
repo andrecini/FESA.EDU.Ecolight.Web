@@ -1,4 +1,6 @@
-﻿@{
+﻿@model UsuariosViewModel
+
+@{
     ViewData["Title"] = "Detalhes";
 }
 
@@ -15,13 +17,13 @@
                 <div class="col">
                     <div class="mb-2">
                         <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome" placeholder="Digite seu Nome" value="André" name="Nome" readonly />
+                        <input type="text" class="form-control" id="nome" placeholder="Digite seu Nome" value="@Model.Nome.Split(' ')[0]" name="Nome" readonly />
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-2">
                         <label for="sobrenome" class="form-label">Sobrenome</label>
-                        <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu Sobrenome" value="Cini" name="Sobrenome" readonly />
+                        <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu Sobrenome" value="@Model.Nome.Split(' ')[1]" name="Sobrenome" readonly />
                     </div>
                 </div>
             </div>
@@ -30,14 +32,14 @@
                 <div class="col">
                     <div class="mb-2">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" value="123.456.789-10" name="Cpf" readonly />
+                        <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" value="@Model.Cpf" name="Cpf" readonly />
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-2">
                         <label for="empresa" class="form-label">Empresa</label>
                         <select class="form-select" name="EmpresaId">
-                            <option value="1" selected>Ecolight</option>
+                            <option value="@Model.EmpresaId" selected>@Model.EmpresaId</option>
                         </select>
                     </div>
                 </div>
@@ -48,14 +50,14 @@
                 <div class="col">
                     <div class="mb-2">
                         <label for="celular" class="form-label">Celular</label>
-                        <input type="text" class="form-control" id="celular" value="(11) 98172-4993" placeholder="Digite seu Celular" name="Celular"/>
+                        <input type="text" class="form-control" id="celular" value="@Model.Celular" placeholder="Digite seu Celular" name="Celular" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-2">
                         <label for="uf" class="form-label">UF</label>
                         <select class="form-select" name="Uf">
-                            <option value="1" selected>SP</option>
+                            <option value="@Model.Uf" selected>@Model.Uf</option>
                         </select>
                     </div>
                 </div>
@@ -63,23 +65,25 @@
 
             <div class="mb-2">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" value="andrevpcini@gmail.com" placeholder="Digite seu email" name="Email"/>
+                <input type="email" class="form-control" id="email" value="@Model.Email" placeholder="Digite seu email" name="Email"/>
             </div>
 
             <div class="row">
                 <div class="col">
                     <div class="mb-2">
                         <label for="password" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="senha" value="12345678" placeholder="Digite seu senha" name="Senha"/>
+                        <input type="password" class="form-control" id="senha" value="@Model.Senha" placeholder="Digite seu senha" name="Senha"/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-2">
                         <label for="password" class="form-label">Confirmação</label>
-                        <input type="password" class="form-control" id="senha" value="12345678" placeholder="Digite seu senha" name="Confirmacao"/>
+                        <input type="password" class="form-control" id="senha" value="@Model.Senha" placeholder="Digite seu senha" name="Confirmacao"/>
                     </div>
                 </div>
             </div>
+
+            <input type="hidden" value="@Model.Id" name="Id"/>
 
             <input type="submit" class="btn btn-success w-100 mb-2" value="Cadastrar" />
 
