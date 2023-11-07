@@ -1,6 +1,8 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Dashboard";
 }
+
 
 <link href="~/css/dashboard/index.css" rel="stylesheet" />
 
@@ -9,7 +11,7 @@
         <span class="card-title">Ativos</span>
 
         <div class="card-info">
-            <span class="card-data">50</span>
+            <span class="card-data">@Model.Ativo</span>
             <i class="card-icon material-icons"> brightness_5</i>
         </div>
     </div>
@@ -19,24 +21,24 @@
 
 
         <div class="card-info">
-            <span class="card-data">25</span>
+            <span class="card-data">@Model.Inativo</span>
             <i class="card-icon material-icons"> brightness_7 </i>
         </div>
     </div>
 
-    <div class="col card">
-        <span class="card-title">StandBy</span>
+    @*     <div class="col card">
+    <span class="card-title">CriticalDevices</span>
 
-        <div class="card-info">
-            <span class="card-data">25</span>
-            <i class="card-icon material-icons"> brightness_6 </i>
-        </div>
+    <div class="card-info">
+    <span class="card-data">@Model.</span>
+    <i class="card-icon material-icons"> brightness_6 </i>
     </div>
+    </div> *@
 
     <div class="col card">
         <span class="card-title">Dispositivos</span>
         <div class="card-info">
-            <span class="card-data">100</span>
+            <span class="card-data">@Model.Total</span>
             <i class="card-icon material-icons"> memory </i>
         </div>
     </div>
@@ -46,20 +48,20 @@
     <div class="col h-100 p-0">
         <div class="card h-100">
             <div class="card-title">
-                <i class="card-title-icon material-icons"> alarm-smart-wake </i>
+                <i class="card-title-icon material-icons"> circle_notifications </i>
                 <span>Rotinas</span>
             </div>
             <div class="card-list mt-4">
-                @for (int i = 1; i < 11; i++)
+                @foreach (var rotina in Model.Rotinas)
                 {
                     <div class="card shadow-sm w-100 p-0">
                         <div class="card-body row align-items-cents w-100 m-0 p-2">
                             <div class="col p-0">
-                                <span class="card-title">Automação @i</span>
+                                <span class="card-title">@rotina.Nome</span>
                             </div>
                             <div class="col-auto p-0">
-                                <span class="tag tag-ativo ms-2">6:00 am</span>
-                                <span class="tag tag-ativo ms-2">6:00 pm</span>
+                                <span class="tag tag-ativo ms-2">@rotina.Inicio</span>
+                                <span class="tag tag-ativo ms-2">@rotina.Fim</span>
                             </div>
                         </div>
                     </div>
@@ -93,17 +95,18 @@
 <script>
     function RetornaUltimosSeisMeses() {
         let dataAtual = new Date();
-        let mesAtual = dataAtual.getMonth();
-
-        let todosOsMeses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-
         let ultimos6Meses = [];
+        let mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
         for (let i = 0; i < 6; i++) {
-            let mes = todosOsMeses[(12 + mesAtual - 1) % 12];
+            let mes = mesesAbreviados[dataAtual.getMonth()]; // Obtém o mês atual abreviado
             ultimos6Meses.unshift(mes);
+
+            // Subtrai 1 do mês atual para obter o mês do mês passado
+            dataAtual.setMonth(dataAtual.getMonth() - 1);
         }
 
-        console.log(ultimos6Meses);
+        console.log(ultimos6Meses)
 
         return ultimos6Meses;
     }
@@ -116,7 +119,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'Reais (R$)',
-                data: [1200, 900, 800, 1500, 2000, 1700],
+                data: [@((int)Model.DespesasDispositivosMensal.ToList()[0]),
+                       @((int)Model.DespesasDispositivosMensal.ToList()[1]),
+                       @((int)Model.DespesasDispositivosMensal.ToList()[2]),
+                       @((int)Model.DespesasDispositivosMensal.ToList()[3]),
+                       @((int)Model.DespesasDispositivosMensal.ToList()[4]),
+                       @((int)Model.DespesasDispositivosMensal.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',
@@ -155,7 +163,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'kWh',
-                data: [12000, 9000, 8000, 15000, 20000, 17000],
+                data: [@((int)Model.UsoKwhMensal.ToList()[0]),
+                       @((int)Model.UsoKwhMensal.ToList()[1]),
+                       @((int)Model.UsoKwhMensal.ToList()[2]),
+                       @((int)Model.UsoKwhMensal.ToList()[3]),
+                       @((int)Model.UsoKwhMensal.ToList()[4]),
+                       @((int)Model.UsoKwhMensal.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',

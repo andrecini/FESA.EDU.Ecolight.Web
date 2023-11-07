@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RelatorioViewModel
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -10,7 +11,7 @@
             <span class="card-title">Taxa de Carbono (unid.)</span>
 
             <div class="card-info">
-                <span class="card-data">50</span>
+                <span class="card-data">@Model.EmissaoDeCarbono</span>
                 <i class="card-icon material-icons"> recycling </i>
             </div>
         </div>
@@ -19,7 +20,7 @@
             <span class="card-title">Gasto até o momento (R$)</span>
 
             <div class="card-info">
-                <span class="card-data">50</span>
+                <span class="card-data">@Model.CustoDispositivos</span>
                 <i class="card-icon material-icons"> payments </i>
             </div>
         </div>
@@ -54,15 +55,15 @@
                 <span>Maiores Gastos</span>
             </div>
             <div class="card-list mt-4">
-                @for (int i = 1; i < 11; i++)
+                @foreach (var dispositivo in Model.DispositivosCriticos)
                 {
                     <div class="card shadow-sm w-100 p-0">
                         <div class="card-body row align-items-cents w-100 m-0 p-2">
                             <div class="col p-0">
-                                <span class="card-title">Dispositivo @i</span>
+                                <span class="card-title">@dispositivo.Nome</span>
                             </div>
                             <div class="col-auto p-0">
-                                <span class="tag tag-ativo ms-2">@(10000 / i) kWh</span>
+                                <span class="tag tag-ativo ms-2">@dispositivo.KwhUsados kWh</span>
                             </div>
                         </div>
                     </div>
@@ -78,15 +79,15 @@
                 <span>Dispositivos</span>
             </div>
             <div class="card-list mt-4">
-                @for (int i = 1; i < 11; i++)
+                @foreach (var dispositivo in Model.TodosDispositivos)
                 {
                     <div class="card shadow-sm w-100 p-0">
                         <div class="card-body row align-items-cents w-100 m-0 p-2">
                             <div class="col p-0">
-                                <span class="card-title">Dispositivo @i</span>
+                                <span class="card-title">@dispositivo.Nome</span>
                             </div>
                             <div class="col-auto p-0">
-                                <span class="tag tag-ativo ms-2">@(10000 / i) kWh</span>
+                                <span class="tag tag-ativo ms-2">@dispositivo.KwhUsados kWh</span>
                             </div>
                         </div>
                     </div>
@@ -102,17 +103,18 @@
 <script>
     function RetornaUltimosSeisMeses() {
         let dataAtual = new Date();
-        let mesAtual = dataAtual.getMonth();
-
-        let todosOsMeses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-
         let ultimos6Meses = [];
+        let mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
         for (let i = 0; i < 6; i++) {
-            let mes = todosOsMeses[(12 + mesAtual - 1) % 12];
+            let mes = mesesAbreviados[dataAtual.getMonth()]; // Obtém o mês atual abreviado
             ultimos6Meses.unshift(mes);
+
+            // Subtrai 1 do mês atual para obter o mês do mês passado
+            dataAtual.setMonth(dataAtual.getMonth() - 1);
         }
 
-        console.log(ultimos6Meses);
+        console.log(ultimos6Meses)
 
         return ultimos6Meses;
     }
@@ -125,7 +127,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'Reais (R$)',
-                data: [1200, 900, 800, 1500, 2000, 1700],
+                data: [@((int)Model.EconomiaMensalCustos.ToList()[0]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[1]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[2]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[3]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[4]),
+                       @((int)Model.EconomiaMensalCustos.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',
@@ -164,7 +171,12 @@
             labels: RetornaUltimosSeisMeses(),
             datasets: [{
                 label: 'kWh',
-                data: [12000, 9000, 8000, 15000, 20000, 17000],
+                data: [@((int)Model.EconomiaMensalKwh.ToList()[0]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[1]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[2]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[3]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[4]),
+                       @((int)Model.EconomiaMensalKwh.ToList()[5])],
                 backgroundColor: [
                     'rgba(126, 218, 132, 0.2)',
                     'rgba(126, 218, 132, 0.3)',

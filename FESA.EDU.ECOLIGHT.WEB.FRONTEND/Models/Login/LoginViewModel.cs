@@ -1,18 +1,42 @@
 ﻿using FluentValidation;
 using System.Security.Principal;
+using System.Text.Json.Serialization;
 
 namespace FESA.EDU.ECOLIGHT.WEB.FRONTEND.Models.Login
 {
     public class LoginViewModel
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
+
+        [JsonPropertyName("username")]
         public string Nome { get; set; }
+
+        [JsonIgnore]
         public string Sobrenome { get; set; }
+
+        [JsonPropertyName("cpf")]
         public string Cpf { get; set; }
+
+        [JsonPropertyName("empresaId")]
         public int EmpresaId { get; set; }
+
+        [JsonPropertyName("celular")]
         public string Celular { get; set; }
+
+        [JsonPropertyName("email")]
         public string Email { get; set; }
+
+        [JsonPropertyName("password")]
         public string Senha { get; set; }
+
+        [JsonPropertyName("uf")]
+        public int Uf { get; set; }
+
+        [JsonPropertyName("role")]
+        public int Role { get; set; }
+
+        [JsonIgnore]
         public string Confirmacao { get; set; }
 
     }
