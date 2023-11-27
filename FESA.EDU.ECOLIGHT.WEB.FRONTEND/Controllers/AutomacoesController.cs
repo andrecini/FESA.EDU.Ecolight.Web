@@ -25,7 +25,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "v1/settings?page=1&pageSize=5");
+            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "v1/settings?companyId=1");
 
             var result = await automacoes.Content.ReadAsStringAsync();
 
@@ -66,7 +66,7 @@ namespace FESA.EDU.Ecolight.Web.FRONTEND.Controllers
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
 
-            var automacoes = await ApiHelper.SendGetRequest(_httpClient, "/v1/settings/1");
+            var automacoes = await ApiHelper.SendGetRequest(_httpClient, $"/v1/settings/1");
 
             var result = await automacoes.Content.ReadAsStringAsync();
 
